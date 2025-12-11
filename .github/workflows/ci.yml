@@ -8,17 +8,27 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout del código
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Configurar Python 3.11
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: "3.11"
 
-      - name: Install dependencies
-        run: pip install flask pytest
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Run tests
-        run: pytest -q
+      - name: Configurar variables de entorno
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        run: |
+          echo "SECRET_KEY configurada para tests"
+
+      - name: Ejecutar tests con pytest
+        run: |
+          pytest -q
