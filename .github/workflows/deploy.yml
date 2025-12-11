@@ -9,6 +9,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+
     steps:
       - name: Checkout del código
         uses: actions/checkout@v3
@@ -23,11 +26,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Configurar variables de entorno (producción)
-        env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      - name: Ejecutar tests antes del deploy
         run: |
-          echo "Usando SECRET_KEY en entorno de producción"
+          pytest -q
 
-      - na
-	
+      - name: Simular despliegue
+        run: |
+          echo "Despliegue simulado exitoso con SECRET_KEY=${SECRET_KEY}"
