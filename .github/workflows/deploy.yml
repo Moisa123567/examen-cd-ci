@@ -32,4 +32,5 @@ jobs:
 
       - name: Simular despliegue
         run: |
-          echo "Despliegue simulado exitoso con SECRET_KEY=${SECRET_KEY}"
+          echo "Despliegue exitoso con SECRET_KEY=${SECRET_KEY}"
+
